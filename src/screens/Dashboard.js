@@ -85,7 +85,9 @@ const BadCharacterList = ({navigation}) => {
                   <TouchableOpacity
                     onPress={() => {
                       item.url
-                        ? alert('Unable to update')
+                        ? alert(
+                            'Unable to update. only new added user are editable..',
+                          )
                         : navigation.navigate('AddUser', {user: item.id});
                     }}
                     style={{marginRight: 15}}>

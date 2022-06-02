@@ -11,7 +11,7 @@ import Dashboard from './src/screens/Dashboard';
 import Setting from './src/screens/Setting';
 import Details from './src/screens/Details';
 import AddUser from './src/screens/AddUser';
-import {isLogin} from './src/redux/Action/EmpAction';
+import {fetchData, isLogin} from './src/redux/Action/EmpAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeStack = createNativeStackNavigator();
@@ -137,8 +137,13 @@ export default function App() {
   }, []);
   const fetchLogin = async () => {
     const data = await AsyncStorage.getItem('isLogin');
-    console.log(data);
-    dispatch(isLogin(JSON.parse(data)));
+    const data2 = await AsyncStorage.getItem('fetchData');
+    if (data) {
+      dispatch(isLogin(JSON.parse(data)));
+    }
+    if (data2) {
+      dispatch(fetchData(JSON.parse(data)));
+    }
   };
   return (
     <NavigationContainer>

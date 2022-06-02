@@ -11,7 +11,7 @@ import {
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {isLogin} from '../redux/Action/EmpAction';
+import {isLogin, fetchData} from '../redux/Action/EmpAction';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

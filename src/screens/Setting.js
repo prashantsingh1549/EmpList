@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {isLogin} from '../redux/Action/EmpAction';
+import {isLogin, fetchData} from '../redux/Action/EmpAction';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -27,7 +28,12 @@ const Setting = () => {
         <Text style={styles.name}>Prashant Singh</Text>
       </View>
       <TouchableOpacity
-        onPress={() => disptach(isLogin(false))}
+        onPress={async () => {
+          await AsyncStorage.setItem('isLogin', JSON.stringify(false));
+          await AsyncStorage.setItem('fetchData', JSON.stringify(false));
+          disptach(isLogin(false));
+          disptach(fetchData(false));
+        }}
         style={styles.logoutButton}>
         <Icon name="logout" size={30} color={'red'} />
         <Text style={[styles.name, {color: 'red', marginLeft: 30}]}>

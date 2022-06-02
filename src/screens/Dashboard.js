@@ -14,23 +14,30 @@ import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {apiData} from '../utils/ApiEndPoint';
-import {deleteUser, listOfAllEpm} from '../redux/Action/EmpAction';
+import {
+  deleteUser,
+  fetchData,
+  isLogin,
+  listOfAllEpm,
+} from '../redux/Action/EmpAction';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const BadCharacterList = ({navigation}) => {
   const dispatch = useDispatch();
-  const {listOfEmp, isLogin} = useSelector(state => state.EmpReducer);
+  const {listOfEmp, isFetch} = useSelector(state => state.EmpReducer);
 
   useEffect(() => {
     getUserList();
   }, []);
   const getUserList = async () => {
-    if (!isLogin) {
+    if (!isFetch) {
       await axios
         .get(apiData.baseUrl)
         .then(async res => {
           dispatch(listOfAllEpm(res.data));
+          dispatch(fetchData(true));
           await AsyncStorage.setItem('empList', JSON.stringify(res.data));
+          await AsyncStorage.setItem('fetchData', JSON.stringify(true));
         })
         .catch(err => {
           console.log(err);

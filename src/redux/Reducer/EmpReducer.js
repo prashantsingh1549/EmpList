@@ -4,10 +4,12 @@ import {
   ADD_USER,
   EDIT_USER,
   DELETE_USER,
+  IS_FETCH,
 } from '../Action/Type';
 const initialState = {
   listOfEmp: [],
   isLogin: false,
+  isFetch: false,
 };
 
 const EmpReducer = (state = initialState, action) => {
@@ -37,6 +39,11 @@ const EmpReducer = (state = initialState, action) => {
       return {
         ...state,
         listOfEmp: state.listOfEmp.filter(item => item.id != action.body),
+      };
+    case IS_FETCH:
+      return {
+        ...state,
+        isFetch: action.body,
       };
 
     default:
